@@ -201,435 +201,340 @@ The 5 triggers:
 ---
 ### STEP 5 — 11:50 PM Nightly Income Reconciliation
 
-Runs at **11:50 PM** for every worker with:
+> **This is where payouts are actually calculated.**
+> Runs once per day at **11:50 PM** after all disruption windows for the day are finalized.
 
-* Active policy
-* At least one disruption event logged today
+```
+For every worker with:
+  ├─ Active policy
+  └─ ≥1 disruption event recorded today
 
-For each disruption event recorded for this worker:
+System processes each disruption event individually.
 
----
-
-## A. Pull Actual Delivery Data
+──────────────────────────────────────────────────────────────
+A. Pull actual delivery data
+──────────────────────────────────────────────────────────────
 
 Fetch from mock platform API:
 
 Worker's orders completed per hour slot today.
 
 Example:
+  { 10AM:3, 11AM:4, 12PM:2, 1PM:3, 2PM:1, 3PM:0, 4PM:1 }
 
-```
-{
-  10AM: 3,
-  11AM: 4,
-  12PM: 2,
-  1PM: 3,
-  2PM: 1,
-  3PM: 0,
-  4PM: 1
-}
-```
+──────────────────────────────────────────────────────────────
+B. Load worker baseline
+──────────────────────────────────────────────────────────────
 
----
+IF worker has ≥4 weeks of history:
 
-## B. Load Worker Baseline
+  Use personal 4-week average for same:
+    ├─ Day-of-week
+    └─ Hour slots
 
-### Case 1 — Worker has 4+ weeks history
+Example baseline:
+  { 2PM:3.2, 3PM:3.5, 4PM:2.8 }
 
-Use personal **4-week average** for the same:
+IF worker history insufficient (new worker / shift change):
 
-* Day of week
-* Hour slots
+  ML baseline estimation predicts expected orders using:
+    ├─ Zone-level patterns
+    ├─ Day-of-week
+    ├─ Time slot
+    └─ Event calendar
 
-Example:
+Formula remains identical — only baseline source changes.
 
-```
-{
-  2PM: 3.2,
-  3PM: 3.5,
-  4PM: 2.8
-}
-```
-
-### Case 2 — Insufficient history
-
-ML baseline estimation predicts expected orders using:
-
-* Zone-level patterns
-* Day-of-week
-* Time slot
-* Event calendar
-
-Formula remains the same — only the baseline input changes.
-
----
-
-## C. Intersect with Disruption Window Only
+──────────────────────────────────────────────────────────────
+C. Intersect with disruption window
+──────────────────────────────────────────────────────────────
 
 Example disruption window:
+  2:15 PM – 4:30 PM  (2.25 hours)
 
-```
-2:15 PM – 4:30 PM (2.25 hours)
-```
+Only hour slots INSIDE this window are evaluated.
+All other hours ignored.
 
-Only evaluate hour slots **inside this window**.
-Ignore the rest of the day.
+──────────────────────────────────────────────────────────────
+D. Calculate actual income loss
+──────────────────────────────────────────────────────────────
 
----
-
-## D. Calculate Actual Income Loss
-
-```
 orders_lost = Σ (baseline[hr] − actual[hr]) for hrs in window
+
 income_lost = orders_lost × avg_earning_per_order
-```
 
-`avg_earning_per_order` is taken from the worker's historical earnings average stored at onboarding.
+avg_earning_per_order is taken from worker's historical earnings
+average stored during onboarding.
 
----
+──────────────────────────────────────────────────────────────
+E. Prorated cap calculation
+──────────────────────────────────────────────────────────────
 
-## E. Prorated Cap
-
-```
 hourly_rate = tier_daily_max ÷ 8 working hours
+
 event_cap   = hourly_rate × disruption_duration_hours
-```
 
 Example (Suraksha tier):
 
-```
-hourly_rate = ₹600 ÷ 8 = ₹75/hr
-event_cap   = ₹75 × 2.25 = ₹168.75
-```
+  hourly_rate = ₹600 ÷ 8 = ₹75/hr
+  event_cap   = ₹75 × 2.25 = ₹168.75
 
----
+──────────────────────────────────────────────────────────────
+F. Final payout rule
+──────────────────────────────────────────────────────────────
 
-## F. Final Payout — MIN Rule
-
-```
 payout = MIN(income_lost, event_cap)
-```
 
-This guarantees:
+Guarantees:
+  ├─ Never pays more than actual income loss
+  ├─ Never exceeds tier payout cap
+  └─ Worker must actually lose orders to qualify
 
-* Never overpay actual loss
-* Never exceed tier cap
-* Protects insurer
-* Fair to worker
+──────────────────────────────────────────────────────────────
+G. Claim decision
+──────────────────────────────────────────────────────────────
 
----
+IF payout > ₹20
+  → Create claim record → Step 6
 
-## G. Decision Logic
+IF payout ≤ ₹20
+  → Dismiss silently
 
-| Condition                       | Result                |
-| ------------------------------- | --------------------- |
-| payout > ₹20                    | CREATE claim → Step 6 |
-| payout ≤ ₹20                    | Dismiss silently      |
-| worker performed above baseline | Dismiss silently      |
-| disruption outside worker shift | Event blocked earlier |
+IF worker performed above baseline
+  → Dismiss silently
 
----
+IF disruption outside shift window
+  → Event never logged (blocked in Step 4)
 
-# Worked Examples
-
----
-
-## Example 1 — Partial Loss (Most common)
-
-Disruption: **Rain 2:15 – 4:30 PM**
-
-| Metric          | Value   |
-| --------------- | ------- |
-| Baseline orders | 7.5     |
-| Actual orders   | 2       |
-| Orders lost     | 5.5     |
-| Income lost     | ₹247.50 |
-| Prorated cap    | ₹168.75 |
-
-Final payout:
-
-```
-MIN(₹247.50, ₹168.75) = ₹168.75
-Rounded → ₹169
 ```
 
 ---
 
-## Example 2 — Worker Delivered Normally
+### STEP 6 — Claim Pathways
 
-Rain detected **3 – 4 PM**
-
-| Metric      | Value    |
-| ----------- | -------- |
-| Baseline    | 3 orders |
-| Actual      | 4 orders |
-| Income lost | Negative |
-
-Result:
+> Claims are created only after reconciliation confirms **real income loss**.
 
 ```
-Payout = ₹0
-Claim dismissed silently
+Two claim types exist:
+
+  PATH A — Automatic Claim
+  PATH B — Worker Self-Report
+
+Both eventually enter the fraud verification pipeline.
 ```
 
 ---
 
-## Example 3 — Rain Outside Shift
-
-Rain at **3 AM**
-Worker shift: **10 AM – 9 PM**
-
-Result:
-
-* Timer never started
-* No disruption event logged
-* No claim created
-* No payout
-
----
-
-## Example 4 — All-Day Curfew
-
-Bandh: **8 AM – 8 PM**
-
-Worker shift: **10 AM – 9 PM**
-
-Window overlap:
+#### PATH A — Automatic Claim (~80%)
 
 ```
-10 AM – 8 PM = 10 hours
-```
+Triggered by:
+  Reconciliation job detecting payout > ₹20
 
-| Metric          | Value |
-| --------------- | ----- |
-| Baseline orders | 30    |
-| Actual orders   | 0     |
-| Income lost     | ₹1350 |
+Worker action required:
+  None
 
-Tier cap example:
+System auto-creates claim with evidence bundle:
 
-```
-Cap = ₹750
-Payout = MIN(₹1350, ₹750) = ₹750
+  ├─ Trigger type           (e.g. HEAVY_RAIN)
+  ├─ API reading value      (e.g. 52mm/hr at 14:30)
+  ├─ Source URL snapshot
+  ├─ Disruption window
+  ├─ Duration
+  ├─ Zone confirmation
+  ├─ Baseline orders
+  ├─ Actual orders
+  └─ Calculated payout
+
+Worker notification (after fraud check passes):
+
+  "Disruption detected in your zone.
+   Claim #XXXXX created.
+   Verifying — payout in ~10 minutes."
+
+Fraud signals checked for Path A:
+
+  ├─ GPS zone match
+  ├─ Device activity during shift
+  ├─ Platform API data authenticity
+  ├─ Duplicate claim detection
+  └─ Claim frequency anomaly
 ```
 
 ---
 
-# STEP 6 — Claim Pathways
-
-After reconciliation creates a claim record, it is tagged as:
-
-* **Path A — Automatic**
-* **Path B — Self-Report**
-
-Both enter fraud verification.
-
----
-
-# PATH A — Automatic Claim (~80%)
-
-Triggered automatically by reconciliation.
-
-Worker action required: **None**
-
-### Claim Evidence Bundle
-
-* Trigger type (e.g. HEAVY_RAIN)
-* API reading value
-* Source URL snapshot
-* Disruption window
-* Duration
-* Zone match confirmation
-* Baseline orders
-* Actual orders
-* Calculated payout
-
-Worker notification:
+#### PATH B — Worker Self-Report (~20%)
 
 ```
-Disruption detected in your zone.
-Claim #XXXXX created.
-Verifying — payout in ~10 minutes.
+Used when:
+  Real disruption occurred but API trigger was missed.
+
+Example:
+  Hyper-local flash flood not detected by weather API.
 ```
 
-### Fraud Signals
-
-* GPS zone match
-* Device activity check
-* Platform API authenticity
-* Same-event duplicate check
-* Claim frequency anomaly detection
-
----
-
-# PATH B — Worker Self-Report (~20%)
-
-Used when **API threshold did not detect disruption**.
-
-Example: hyper-local flash flood.
-
-### Worker Flow
-
-Worker texts:
+Worker flow:
 
 ```
-CLAIM
-```
+Worker texts:  CLAIM
+       │
+       ▼
+Bot asks disruption type:
 
+  1 Heavy rain / flood
+  2 Extreme heat
+  3 Poor air quality
+  4 Curfew / bandh
+  5 App not working / no orders
+
+Worker selects option
+       │
+       ▼
+Bot asks for ONE proof:
+
+  ├─ Photo of disruption
+  ├─ News alert screenshot
+  └─ Delivery app screenshot showing 0 orders
+
+Worker uploads image
+       │
+       ▼
 Bot response:
 
-```
-Which disruption affected you today?
-
-1. Heavy rain / flood
-2. Extreme heat
-3. Poor air quality
-4. Curfew / bandh
-5. App not working / no orders
+  "Claim submitted.
+   Verification in progress (~30 minutes)"
 ```
 
-Worker selects option.
-
-Bot asks for proof:
+Extra **Media Verification layer** runs first:
 
 ```
-Upload ONE proof:
-• Photo of disruption
-• Screenshot of news alert
-• Screenshot of delivery app showing 0 orders
-```
-
-Worker uploads media.
-
-Bot reply:
-
-```
-Claim submitted.
-Verification in progress (~30 minutes)
-```
-
----
-
-# Media Verification (Path B Only)
-
 Checks performed:
 
-* EXIF timestamp check (within last 6 hours)
-* GPS metadata match
-* Duplicate image hash detection
-* NewsAPI corroboration
-* Platform order volume verification
+  ├─ EXIF timestamp (photo within last 6 hrs)
+  ├─ GPS metadata match
+  ├─ Duplicate image hash detection
+  ├─ NewsAPI corroboration
+  └─ Platform order volume cross-check
 
-Path B has stricter approval threshold:
-
-```
-Auto-approve only if fraud score < 0.60
+Path B uses stricter approval threshold:
+  Auto-approve only if fraud score < 0.60
 ```
 
 ---
 
-# STEP 7 — 3-Layer Fraud Verification
+### STEP 7 — 3-Layer Fraud Verification
 
 ```
-Layer 1 — Rule Based (<1 sec)
-Layer 2 — GPS Validation (<5 sec)
-Layer 3 — Isolation Forest ML (<10 sec)
+All claims (Path A + Path B) pass through:
+
+  LAYER 1 — Rule-Based Filter
+  LAYER 2 — GPS Location Validation
+  LAYER 3 — Isolation Forest ML Model
 ```
 
 ---
 
-## Layer 1 — Rule Filters
+Layer 1 — Rules (<1 sec)
 
+```
 Reject if:
 
-* Duplicate UPI across multiple accounts
-* Claim before trigger threshold
-* Weekly cap exhausted
-* Policy inactive
-* Same disruption already paid
+  ├─ Duplicate UPI across accounts
+  ├─ Claim before API trigger threshold
+  ├─ Weekly payout cap exhausted
+  ├─ Policy expired or unpaid
+  └─ Same trigger already paid today
+```
 
 ---
 
-## Layer 2 — GPS Validation
+Layer 2 — GPS Validation (<5 sec)
 
-| Condition                | Effect            |
-| ------------------------ | ----------------- |
-| Zone mismatch > 15 km    | +0.30 fraud score |
-| Impossible velocity      | Auto reject       |
-| No GPS pings in 4 hours  | +0.20 fraud score |
-| Zone switched < 48 hours | +0.15 fraud score |
+```
+Zone mismatch > 15km        → +0.30 fraud score
+Impossible GPS velocity     → AUTO-REJECT
+No location pings in 4 hrs  → +0.20 fraud score
+Zone switched < 48 hrs      → +0.15 fraud score
+```
 
 ---
 
-## Layer 3 — Isolation Forest ML
+Layer 3 — Isolation Forest ML (<10 sec)
 
+```
 Features used:
 
-* Claim frequency vs zone norm
-* Earnings ratio
-* Claim time distribution
-* Historical claim-to-disruption correlation
-* Device fingerprint uniqueness
+  ├─ Claim frequency vs zone norm
+  ├─ Earnings ratio
+  ├─ Time-of-day claim distribution
+  ├─ Claim-to-disruption correlation
+  └─ Device fingerprint uniqueness
 
 Output:
+  Fraud score between 0.00 – 1.00
+```
+
+Decision routing:
 
 ```
-Fraud Score: 0.00 – 1.00
+0.00 – 0.74   → AUTO APPROVE (Path A)
+0.00 – 0.60   → AUTO APPROVE (Path B)
+0.75 – 0.89   → HOLD (admin review)
+0.90 – 1.00   → AUTO REJECT
 ```
 
 ---
 
-## Fraud Score Routing
-
-| Score Range | Decision              |
-| ----------- | --------------------- |
-| 0.00 – 0.74 | Auto-approve (Path A) |
-| 0.00 – 0.60 | Auto-approve (Path B) |
-| 0.75 – 0.89 | Hold → Admin review   |
-| 0.90 – 1.00 | Auto reject           |
-
----
-
-# STEP 8 — Instant UPI Payout
-
-Triggered after **fraud auto-approval**.
-
-Process:
+### STEP 8 — Instant UPI Payout
 
 ```
-Razorpay Payout API → worker UPI
-Transfer time < 6 minutes
+Triggered when:
+  Claim passes fraud verification.
+
+Payment flow:
+
+  Razorpay Payout API
+        │
+        ▼
+  Worker UPI ID
+
+Transfer time:
+  < 6 minutes
 ```
 
-Worker receives WhatsApp confirmation with:
+Worker receives WhatsApp confirmation:
 
-* Payout amount
-* Trigger type
-* Disruption window
-* Claim ID
+```
+"₹169 transferred successfully.
 
----
+ Trigger: Heavy Rain
+ Window: 2:15 PM – 4:30 PM
+ Claim ID: XXXXX"
+```
 
-## Policy Ledger Updates
+System ledger updates:
 
-System updates:
-
-* Weekly cap decremented
-* Claim marked **SETTLED**
-* Analytics event fired for insurer dashboard
+```
+  ├─ Weekly payout cap reduced
+  ├─ Claim marked SETTLED
+  └─ Analytics event fired for insurer dashboard
+```
 
 Worker can check status anytime:
 
 ```
-STATUS
+Reply: STATUS
 ```
 
 Bot returns:
 
-* Active policy
-* Settled claims
-* Remaining weekly cap
-* Next renewal date
+```
+  ├─ Active policy
+  ├─ Settled claims
+  ├─ Remaining weekly cap
+  └─ Next renewal date
+```
+
 
 ---
 
