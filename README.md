@@ -10,8 +10,6 @@ Automatically. Fairly. Based on income actually lost.
 
 ## 📋 Table of Contents
 
-## 📋 Table of Contents
-
 1. [The Problem](#1-the-problem)
 2. [Our Solution](#2-our-solution)
 3. [Persona — Who We Protect](#3-persona--who-we-protect)
