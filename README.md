@@ -10,19 +10,23 @@ Automatically. Fairly. Based on income actually lost.
 
 ## 📋 Table of Contents
 
+## 📋 Table of Contents
+
 1. [The Problem](#1-the-problem)
 2. [Our Solution](#2-our-solution)
 3. [Persona — Who We Protect](#3-persona--who-we-protect)
-4. [End-to-End Application Workflow](#4-end-to-end-application-workflow)
-5. [User Claim Submission & Verification System](#5-user-claim-submission--verification-system)
+4. [Complete Platform Workflow](#4-complete-platform-workflow)
+5. [System Architecture](#5-system-architecture)
 6. [Parametric Triggers](#6-parametric-triggers)
 7. [Weekly Premium Model](#7-weekly-premium-model)
-8. [AI / ML Integration Plan](#8-ai--ml-integration-plan)
+8. [AI / ML Integration](#8-ai--ml-integration)
 9. [Fraud Detection Architecture](#9-fraud-detection-architecture)
-10. [Platform Choice & Justification](#10-platform-choice--justification)
+10. [Platform Choice](#10-platform-choice)
 11. [Tech Stack](#11-tech-stack)
-12. [What Rakshak Does NOT Cover](#14-what-rakshak-does-not-cover)
-13. [Team](#15-team)
+12. [System Scalability](#12-system-scalability)
+13. [Business Viability](#13-business-viability)
+14. [What Rakshak Does NOT Cover](#14-what-rakshak-does-not-cover)
+15. [Team](#15-team)
 
 
 ---
