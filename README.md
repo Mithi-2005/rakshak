@@ -379,7 +379,7 @@ Worker flow:
 Worker texts:  CLAIM
        │
        ▼
-Bot asks disruption type:
+Website asks disruption type:
 
   1 Heavy rain / flood
   2 Extreme heat
@@ -399,7 +399,7 @@ Bot asks for ONE proof:
 Worker uploads image
        │
        ▼
-Bot response:
+Website response:
 
   "Claim submitted.
    Verification in progress (~30 minutes)"
@@ -518,21 +518,6 @@ System ledger updates:
   ├─ Weekly payout cap reduced
   ├─ Claim marked SETTLED
   └─ Analytics event fired for insurer dashboard
-```
-
-Worker can check status anytime:
-
-```
-Reply: STATUS
-```
-
-Bot returns:
-
-```
-  ├─ Active policy
-  ├─ Settled claims
-  ├─ Remaining weekly cap
-  └─ Next renewal date
 ```
 
 
