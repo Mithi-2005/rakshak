@@ -48,6 +48,8 @@ When a Red Alert rainstorm hits Hyderabad, or AQI crosses 300 in Delhi, or a sud
 Rakshak is an AI-enabled parametric income insurance platform built exclusively
 for food delivery partners on Zomato, Swiggy, and similar platforms.
 
+Rakshak combines parametric triggers with real delivery platform data to ensure payouts reflect actual income lost — not just the presence of a disruption event.
+
 | Core Feature     | What It Means                                               |
 |------------------|-------------------------------------------------------------|
 | Mobile App + Web | Single backend supporting two frontends                     |
@@ -133,7 +135,7 @@ ML Model
 Inputs:   Pincode flood index · 3-yr AQI average · disruption frequency
           · current season · 7-day forecast · worker tenure etc
 Output:   Zone Risk Score (0–100) + Risk Tier (Low/Med/High/Extreme)
-          Respective Premium Plans(dynamic prices)&
+          Respective Premium Plans(dynamic pricing)&
           Recommended weekly tier
 
 
@@ -522,28 +524,45 @@ System ledger updates:
   └─ Analytics event fired for insurer dashboard
 ```
 
+### End-to-End System Flow (High Level)
+
+1. Worker purchases a weekly policy.
+2. Trigger Monitoring Service continuously checks disruption APIs
+   (weather, AQI, news, platform data).
+3. When thresholds are crossed, disruption events are recorded for the zone.
+4. At 11:50 PM, the Income Loss Reconciliation Engine retrieves:
+   • worker delivery data
+   • historical baseline
+5. Actual income loss is calculated.
+6. Fraud detection pipeline verifies the claim.
+7. Approved claims trigger instant UPI payouts via Razorpay.
 
 ---
 
 ## 5. System Architecture
 ![Rakshak Architecture](./architecture.jpg) 
 
-Rakshak uses a modular microservice-style architecture consisting of: 
-- API Gateway (Django REST) 
-- Core Platform Services 
-- AI/ML Models for pricing, fraud detection, and loss estimation 
-- External disruption data APIs 
-- Instant payout integration via Razorpay
+Rakshak follows a modular, microservice-style architecture where independent
+platform services interact through a centralized API gateway.
 
-### Architecture Highlights 
-• Trigger Monitoring continuously polls weather, AQI, and news APIs using Celery jobs. 
-• When disruptions occur, the Claims & Reconciliation Engine calculates income loss. 
-• AI/ML models assist with premium pricing, risk scoring, and fraud detection. 
-• Verified claims trigger instant payouts through Razorpay UPI. 
-• PostgreSQL stores policies and claims while Redis handles caching.
+The system is composed of the following major layers:
+
+- **API Gateway (Django REST)** — handles authentication, request routing, and rate limiting.
+- **Core Platform Services** — worker onboarding, policy management, disruption monitoring, claims processing, and fraud detection.
+- **AI / ML Services** — models for zone risk profiling, dynamic premium pricing, income-loss estimation, and anomaly-based fraud detection.
+- **External Data Sources** — weather, AQI, news feeds, and delivery platform APIs used for disruption detection and income verification.
+- **Payment Infrastructure** — instant claim payouts through Razorpay UPI.
+
+### Architecture Highlights
+
+• **Trigger Monitoring Service** continuously polls weather, AQI, and news APIs using scheduled Celery jobs.  
+• When disruption thresholds are crossed, events are recorded for the affected geographic zone.  
+• The **Claims & Reconciliation Engine** later validates these disruptions against delivery platform data to calculate actual income loss.  
+• AI/ML models support premium pricing, zone risk scoring, and fraud detection.  
+• Approved claims are transferred instantly to workers through Razorpay UPI payouts.  
+• **PostgreSQL** stores policies, claims, and worker profiles, while **Redis** caches trigger readings and real-time monitoring data.
 
 ---
-
 
 
 ## 6. Parametric Triggers (**Estimated)
@@ -716,7 +735,7 @@ Score routing:(**Estimated)
 
 ### Integrations (Subjected to change)
 | Service | Tool | Mode |
-|---------|------|------| |
+|---------|------|------| 
 | Weather (T1, T2) | OpenWeatherMap API | Free tier |
 | AQI (T3) | WAQI API | Free tier |
 | Curfew (T4) | NewsAPI + custom NLP | Free tier |
