@@ -1,4 +1,4 @@
-# 🛡️ RAKSHAK — Income Shield for India's Delivery Warriors
+﻿# 🛡️ RAKSHAK — Income Shield for India's Delivery Warriors
 
 > **Team : Code Warriors** (SRM University AP)
 
@@ -947,6 +947,86 @@ Low match   →  Anomaly flag added to Isolation Forest score
 > **network router**, **30-day zone history**, and **beat 4 ring alarms** — all at once.
 >
 > **That is not a vulnerability. That is a trap.**
+
+
+### 🗺️ Ground Truth — Platform-Enforced Zone Boundaries
+
+> **The deepest anti-spoofing layer isn't ours. It's built into Swiggy and Zomato themselves.**
+
+Delivery workers don't freely choose where to work. During onboarding, the platform
+assigns them a **fixed primary zone** — with guaranteed minimums and earnings ceiling
+clearly shown per zone.
+
+<div align="center">
+
+<img src="../zone_selection.jpeg" alt="Zone Selection Screen" width="320" />
+<p><em>Swiggy Partner App — Zone selection during onboarding. Worker is assigned a zone, not free-roaming.</em></p>
+
+</div>
+
+Once a zone is assigned, the platform enforces hard geographic boundaries:
+
+<div align="center">
+
+<img src="../zone_map.jpeg" alt="Zone Map" width="220" />
+<p><em>Swiggy Zone Map — polygon-bounded delivery zones. Outside the boundary: "Please get back to your zone to get your next order."</em></p>
+
+</div>
+
+Zone changes are **locked for a minimum of 7 days** after joining:
+
+<div align="center">
+
+<img src="../zone_change_lock.jpeg" alt="Zone Change Locked" width="220" />
+<p><em>Zone change blocked — "Allowed after 7 days of joining. Try again on 27 Mar."</em></p>
+
+</div>
+
+Adding secondary zones requires a separate support request — approved only the
+next afternoon, with 30-day tenure requirements:
+
+<div align="center">
+
+<img src="../secondary_zone.jpeg" alt="Secondary Zone Request" width="220" />
+<p><em>Secondary zone request via support — not instant, subject to eligibility checks.</em></p>
+
+</div>
+
+---
+
+**What this means for Rakshak's 11:50 PM reconciliation:**
+```
+Spoofed GPS zone:          Hyderabad — Banjara Hills
+Worker's platform zone:    Mangalagiri, Vijayawada (on record)
+
+→ Platform delivery API returns:  ZERO sessions in Banjara Hills
+→ Zero sessions                =  Zero income to have lost
+→ Zero payout. GPS coordinate is irrelevant.
+```
+
+| Signal | ✅ Genuine Worker | ❌ GPS Spoofer |
+|--------|-----------------|--------------|
+| Platform zone assignment | Matches disruption zone | Different zone on record |
+| Delivery sessions in zone | Present — platform routes orders | Zero — platform blocks orders outside assigned zone |
+| Zone change recency | Normal tenure | Suspiciously recent or ineligible |
+| 30-day delivery history in zone | Consistent pattern | First appearance = payout event |
+
+**Why this closes the final gap:**
+
+Traditional parametric insurance has no access to this layer — they only see GPS
+coordinates. Rakshak's reconciliation engine cross-checks the **platform's own
+zone-session data**, enforced server-side by Swiggy/Zomato — not the worker's phone.
+```
+A spoofer cannot fake a Swiggy delivery session
+in a zone they are not platform-assigned to.
+
+The platform won't route orders to them there.
+No orders → No session → No income loss → No payout.
+```
+
+> This is not a Rakshak defence. This is the platform's own architecture
+> acting as our strongest verification layer — and we built our reconciliation
+> engine to exploit it fully.
  
 ---
  
