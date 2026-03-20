@@ -69,7 +69,7 @@ Automatically. Fairly. Based on income actually lost.
 </tr>
 <tr>
 <td align="center"><b>14</b></td>
-<td><b><a href="#15-team">Anti GPS Spoofing Strategy</a></b></td>
+<td><b><a href="#15-team">Adversarial Defense & Anti-Spoofing Strategy</a></b></td>
 </tr>
 <tr>
 <td align="center"><b>15</b></td>
@@ -698,7 +698,7 @@ Per the Guidewire DEVTrails Golden Rules:
 
 ---
  
-## 14. Anti GPS Spoofing Strategy
+## 14. Adversarial Defense & Anti-Spoofing Strategy
  
 > **The Threat:** 500 delivery workers used GPS-spoofing apps to fake locations inside a
 > weather alert zone — draining a competitor's liquidity pool in hours.
