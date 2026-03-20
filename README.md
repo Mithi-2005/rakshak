@@ -1,6 +1,6 @@
 # 🛡️ RAKSHAK — Income Shield for India's Delivery Warriors
 
-> **Team · Code Warriors** from SRM University AP
+> **Team : Code Warriors** (SRM University AP)
 
 ```
 "Rakshak" (रक्षक) = Protector in Sanskrit.
@@ -10,21 +10,72 @@ Automatically. Fairly. Based on income actually lost.
 
 ## 📋 Table of Contents
 
-1. [The Problem](#1-the-problem)
-2. [Our Solution](#2-our-solution)
-3. [Persona — Who We Protect](#3-persona--who-we-protect)
-4. [Complete Platform Workflow](#4-complete-platform-workflow)
-5. [System Architecture](#5-system-architecture)
-6. [Parametric Triggers](#6-parametric-triggers)
-7. [Weekly Premium Model](#7-weekly-premium-model)
-8. [AI / ML Integration](#8-ai--ml-integration)
-9. [Fraud Detection Architecture](#9-fraud-detection-architecture)
-10. [Platform Choice](#10-platform-choice)
-11. [Tech Stack](#11-tech-stack)
-12. [System Scalability](#12-system-scalability)
-13. [Business Viability](#13-business-viability)
-14. [What Rakshak Does NOT Cover](#14-what-rakshak-does-not-cover)
-15. [Team](#15-team)
+<table border="1" cellpadding="8" cellspacing="0" width="100%" style="border-collapse: collapse;">
+<tr style="border-bottom: 2px solid #333;">
+<td align="center" width="5%" style="font-weight: bold;"><b>#</b></td>
+<td align="left" style="font-weight: bold;"><b>Section</b></td>
+</tr>
+<tr>
+<td align="center"><b>1</b></td>
+<td><b><a href="#1-the-problem">The Problem</a></b></td>
+</tr>
+<tr>
+<td align="center"><b>2</b></td>
+<td><b><a href="#2-our-solution">Our Solution</a></b></td>
+</tr>
+<tr>
+<td align="center"><b>3</b></td>
+<td><b><a href="#3-persona--who-we-protect">Persona — Who We Protect</a></b></td>
+</tr>
+<tr>
+<td align="center"><b>4</b></td>
+<td><b><a href="#4-complete-platform-workflow">Complete Platform Workflow</a></b></td>
+</tr>
+<tr>
+<td align="center"><b>5</b></td>
+<td><b><a href="#5-system-architecture">System Architecture</a></b></td>
+</tr>
+<tr>
+<td align="center"><b>6</b></td>
+<td><b><a href="#6-parametric-triggers">Parametric Triggers</a></b></td>
+</tr>
+<tr>
+<td align="center"><b>7</b></td>
+<td><b><a href="#7-weekly-premium-model">Weekly Premium Model</a></b></td>
+</tr>
+<tr>
+<td align="center"><b>8</b></td>
+<td><b><a href="#8-ai--ml-integration">AI / ML Integration</a></b></td>
+</tr>
+<tr>
+<td align="center"><b>9</b></td>
+<td><b><a href="#10-platform-choice">Platform Choice</a></b></td>
+</tr>
+<tr>
+<td align="center"><b>10</b></td>
+<td><b><a href="#11-tech-stack">Tech Stack</a></b></td>
+</tr>
+<tr>
+<td align="center"><b>11</b></td>
+<td><b><a href="#12-system-scalability">System Scalability</a></b></td>
+</tr>
+<tr>
+<td align="center"><b>12</b></td>
+<td><b><a href="#13-business-viability">Business Viability</a></b></td>
+</tr>
+<tr>
+<td align="center"><b>13</b></td>
+<td><b><a href="#14-what-rakshak-does-not-cover">What Rakshak Does NOT Cover</a></b></td>
+</tr>
+<tr>
+<td align="center"><b>14</b></td>
+<td><b><a href="#15-team">Anti GPS Spoofing Strategy</a></b></td>
+</tr>
+<tr>
+<td align="center"><b>15</b></td>
+<td><b><a href="#15-team">Team</a></b></td>
+</tr>
+</table>
 
 
 ---
@@ -50,16 +101,32 @@ for food delivery partners on Zomato, Swiggy, and similar platforms.
 
 Rakshak combines parametric triggers with real delivery platform data to ensure payouts reflect actual income lost — not just the presence of a disruption event.
 
-| Core Feature     | What It Means                                               |
-|------------------|-------------------------------------------------------------|
-| Mobile App + Web | Single backend supporting two frontends                     |
-| Parametric       | Payout triggered by data, not claim forms                   |
-| AI-powered       | **1)** Premium pricing + claim amount calculation           |
-|                  | **2)** Disruption monitoring + claim initiation             |
-|                  | **3)** Fraud detection                                      |
-| Weekly pricing   | Multiple plans · dynamic prices aligned to gig pay cycles   |
-| Instant payout   | UPI transfer immediately on claim approval                  |
-
+<table border="1" cellpadding="8" cellspacing="0" width="100%" style="border-collapse: collapse;">
+<tr style="border-bottom: 2px solid #333;">
+<td align="left" style="font-weight: bold;"><b>Core Feature</b></td>
+<td align="left" style="font-weight: bold;"><b>What It Means</b></td>
+</tr>
+<tr>
+<td><b>Mobile App + Web</b></td>
+<td><b>Single backend supporting two frontends</b></td>
+</tr>
+<tr>
+<td><b>Parametric</b></td>
+<td><b>Payout triggered by data, not claim forms</b></td>
+</tr>
+<tr>
+<td><b>AI-powered</b></td>
+<td><b>1) Premium pricing + claim amount calculation<br/>2) Disruption monitoring + claim initiation<br/>3) Fraud detection</b></td>
+</tr>
+<tr>
+<td><b>Weekly pricing</b></td>
+<td><b>Multiple plans · dynamic prices aligned to gig pay cycles</b></td>
+</tr>
+<tr>
+<td><b>Instant payout</b></td>
+<td><b>UPI transfer immediately on claim approval</b></td>
+</tr>
+</table>
 
 ---
 
@@ -102,67 +169,33 @@ Pain point:   "Kal barish thi, ek bhi order nahi mila."
 
 ### STEP 1 — Worker Onboarding
 
-```
-Login/Signup
+<div align="center">
 
-Worker provides:
-  ├─ Name · City · Pincode · Platform (Zomato/Swiggy) etc
-  ├─ Registered shift hours  (e.g. 10 AM – 9 PM) (can also be fetched from platform)
-  └─ UPI ID
+![Worker Onboarding Flow](./architecture_images/step1.png)
 
-System verifies:
-  ├─ OTP 
-  ├─ Delivery partner ID cross-check (mock platform API)
-  
-
-Stored in DB:
-  ├─ Worker profile + zone mapping (pincode → weather station)
-
-
-CRITICAL — Shift window registration:
-  Triggers only fire during the worker's registered shift hours.
-  Rain at 3 AM when worker is asleep → no timer starts → no claim.
-```
+</div>
 
 ---
 
-### STEP 2 — AI Risk Profiling *(ML )*
+### STEP 2 — AI Risk Profiling (Policy Dynamic Pricing) *(ML )*
 
-```
-Runs immediately after onboarding. Background, instant.
+<div align="center">
 
-ML Model
-Inputs:   Pincode flood index · 3-yr AQI average · disruption frequency
-          · current season · 7-day forecast · worker tenure etc
-Output:   Zone Risk Score (0–100) + Risk Tier (Low/Med/High/Extreme)
-          Respective Premium Plans(dynamic pricing)&
-          Recommended weekly tier
+![AI Risk Profiling Flow](./architecture_images/step2.jpeg)
+
+</div>
 
 
 
-```
 
 ---
 
 ### STEP 3 — Weekly Policy Purchase
+<div align="center">
 
-```
- presents 3 AI-recommended tiers:
-                                                example prices
-  Bachao   ₹P1/wk  — Rain + Heat only         — Max ₹800/wk
-  Suraksha ₹P2/wk  — +AQI +Curfew  ★ AI pick  — Max ₹1,500/wk
-  Kavach   ₹P3/wk  — All 5 triggers            — Max ₹2,500/wk
+![Weekly Policy Purchase Flow](./architecture_images/step3.png)
 
-Worker replies "2" (or tier name)
-→ Razorpay UPI collect request sent via WhatsApp
-→ Worker pays with GPay / PhonePe / Paytm
-→ Policy activated: 7-day coverage window begins
-
-On activation:
-  ├─ Policy record created (ID · start · end · cap · triggers enabled)
-  ├─ Monitoring job registered for worker's pincode zone
-  └─ Sunday renewal nudge scheduled
-```
+</div>
 
 ---
 
@@ -170,37 +203,11 @@ On activation:
 
 > **This step ONLY detects disruptions and records their duration. No payout amount is calculated here.**
 
-```
-Architecture: BullMQ job queue polls 5 sources every 15 minutes
-              Redis caches latest readings per zone
+<div align="center">
 
-For each active zone per trigger:
+![Real-Time Disruption Monitoring Flow](./architecture_images/step4.png)
 
-  IF threshold crossed AND current time is within worker's shift window:
-    → Log disruption START: timestamp · API reading · zone
-    → Mark event: ACTIVE
-
-  Continue polling every 15 min...
-
-  IF threshold drops below limit:
-    → Log disruption END: timestamp
-    → Calculate duration = end − start (in hours, decimal)
-    → Event stored: { type, start, end, duration_hrs, peak_reading, zone }
-
-  IF threshold never drops (e.g. all-day bandh):
-    → End timer at 11:45 PM (5 min before reconciliation)
-    → Duration = full shift window overlap
-
-The 5 triggers:
-
-  T1  Rain          OpenWeatherMap API   > 35mm/hr OR IMD Red Alert
-  T2  Extreme heat  OpenWeatherMap API   Feels-like > 44°C, 10AM–4PM window only
-  T3  Hazardous AQI WAQI API             AQI > 300 for 2+ hrs
-  T4  Curfew/bandh  NewsAPI + NLP        "bandh/curfew/strike", confidence > 80%
-  T5  Platform drop Mock platform API    Order volume drop > 60% vs 4-week baseline
-
-
-```
+</div>
 
 ---
 ### STEP 5 — 11:50 PM Nightly Income Reconciliation
@@ -208,284 +215,36 @@ The 5 triggers:
 > **This is where payouts are actually calculated.**
 > Runs once per day at **11:50 PM** after all disruption windows for the day are finalized.
 
-```
-For every worker with:
-  ├─ Active policy
-  └─ ≥1 disruption event recorded today
+<div align="center">
 
-System processes each disruption event individually.
+![Nightly Income Reconciliation Flow](./architecture_images/step5.png)
 
-──────────────────────────────────────────────────────────────
-A. Pull actual delivery data
-──────────────────────────────────────────────────────────────
-
-Fetch from mock platform API:
-
-Worker's orders completed per hour slot today.
-
-Example:
-  { 10AM:3, 11AM:4, 12PM:2, 1PM:3, 2PM:1, 3PM:0, 4PM:1 }
-
-──────────────────────────────────────────────────────────────
-B. Load worker baseline
-──────────────────────────────────────────────────────────────
-
-IF worker has ≥4 weeks of history:
-
-  Use personal 4-week average for same:
-    ├─ Day-of-week
-    └─ Hour slots
-
-Example baseline:
-  { 2PM:3.2, 3PM:3.5, 4PM:2.8 }
-
-IF worker history insufficient (new worker / shift change):
-
-  ML baseline estimation predicts expected orders using:
-    ├─ Zone-level patterns
-    ├─ Day-of-week
-    ├─ Time slot
-    └─ Event calendar
-
-Formula remains identical — only baseline source changes.
-
-──────────────────────────────────────────────────────────────
-C. Intersect with disruption window
-──────────────────────────────────────────────────────────────
-
-Example disruption window:
-  2:15 PM – 4:30 PM  (2.25 hours)
-
-Only hour slots INSIDE this window are evaluated.
-All other hours ignored.
-
-──────────────────────────────────────────────────────────────
-D. Calculate actual income loss
-──────────────────────────────────────────────────────────────
-
-orders_lost = Σ (baseline[hr] − actual[hr]) for hrs in window
-
-income_lost = orders_lost × avg_earning_per_order
-
-avg_earning_per_order is taken from worker's historical earnings
-average stored during onboarding.
-
-──────────────────────────────────────────────────────────────
-E. Prorated cap calculation
-──────────────────────────────────────────────────────────────
-
-hourly_rate = tier_daily_max ÷ 8 working hours
-
-event_cap   = hourly_rate × disruption_duration_hours
-
-Example (Suraksha tier):
-
-  hourly_rate = ₹600 ÷ 8 = ₹75/hr
-  event_cap   = ₹75 × 2.25 = ₹168.75
-
-──────────────────────────────────────────────────────────────
-F. Final payout rule
-──────────────────────────────────────────────────────────────
-
-payout = MIN(income_lost, event_cap)
-
-Guarantees:
-  ├─ Never pays more than actual income loss
-  ├─ Never exceeds tier payout cap
-  └─ Worker must actually lose orders to qualify
-
-──────────────────────────────────────────────────────────────
-G. Claim decision
-──────────────────────────────────────────────────────────────
-
-IF payout > ₹20
-  → Create claim record → Step 6
-
-IF payout ≤ ₹20
-  → Dismiss silently
-
-IF worker performed above baseline
-  → Dismiss silently
-
-IF disruption outside shift window
-  → Event never logged (blocked in Step 4)
-
-```
-
+</div>
 ---
 
 ### STEP 6 — Claim Pathways
 
 > Claims are created only after reconciliation confirms **real income loss**.
 
-```
-Two claim types exist:
+<div align="center">
 
-  PATH A — Automatic Claim
-  PATH B — Worker Self-Report
+![Claim Pathways Flow](./architecture_images/step6.png)
 
-Both eventually enter the fraud verification pipeline.
-```
+</div>
 
 ---
 
-#### PATH A — Automatic Claim (~80%)
+### STEP 7 — Multi-layered Fraud Verification
 
-```
-Triggered by:
-  Reconciliation job detecting payout > ₹20
+> Every Claim undergoes multi layer fraud verification and if the claim is genuine user gets payout instantly and User can also appeal for the rejected claims!
 
-Worker action required:
-  None
+<div align="center">
 
-System auto-creates claim with evidence bundle:
+![Multi Layer Fraud Detevtion](./architecture_images/step7.png)
 
-  ├─ Trigger type           (e.g. HEAVY_RAIN)
-  ├─ API reading value      (e.g. 52mm/hr at 14:30)
-  ├─ Source URL snapshot
-  ├─ Disruption window
-  ├─ Duration
-  ├─ Zone confirmation
-  ├─ Baseline orders
-  ├─ Actual orders
-  └─ Calculated payout
+</div>
 
-Worker notification (after fraud check passes):
 
-  "Disruption detected in your zone.
-   Claim #XXXXX created.
-   Verifying — payout in ~10 minutes."
-
-Fraud signals checked for Path A:
-
-  ├─ GPS zone match
-  ├─ Device activity during shift
-  ├─ Platform API data authenticity
-  ├─ Duplicate claim detection
-  └─ Claim frequency anomaly
-```
-
----
-
-#### PATH B — Worker Self-Report (~20%)
-
-```
-Used when:
-  Real disruption occurred but API trigger was missed.
-
-Example:
-  Hyper-local flash flood not detected by weather API.
-```
-
-Worker flow:
-
-```
-Worker texts:  CLAIM
-       │
-       ▼
-Website asks disruption type:
-
-  1 Heavy rain / flood
-  2 Extreme heat
-  3 Poor air quality
-  4 Curfew / bandh
-  5 App not working / no orders
-
-Worker selects option
-       │
-       ▼
-Bot asks for ONE proof:
-
-  ├─ Photo of disruption
-  ├─ News alert screenshot
-  └─ Delivery app screenshot showing 0 orders
-
-Worker uploads image
-       │
-       ▼
-Website response:
-
-  "Claim submitted.
-   Verification in progress (~30 minutes)"
-```
-
-Extra **Media Verification layer** runs first:
-
-```
-Checks performed:
-
-  ├─ EXIF timestamp (photo within last 6 hrs)
-  ├─ GPS metadata match
-  ├─ Duplicate image hash detection
-  ├─ NewsAPI corroboration
-  └─ Platform order volume cross-check
-
-Path B uses stricter approval threshold:
-  Auto-approve only if fraud score < 0.60
-```
-
----
-
-### STEP 7 — 3-Layer Fraud Verification
-
-```
-All claims (Path A + Path B) pass through:
-
-  LAYER 1 — Rule-Based Filter
-  LAYER 2 — GPS Location Validation
-  LAYER 3 — Isolation Forest ML Model
-```
-
----
-
-Layer 1 — Rules (<1 sec)
-
-```
-Reject if:
-
-  ├─ Duplicate UPI across accounts
-  ├─ Claim before API trigger threshold
-  ├─ Weekly payout cap exhausted
-  ├─ Policy expired or unpaid
-  └─ Same trigger already paid today
-```
-
----
-
-Layer 2 — GPS Validation (<5 sec)
-
-```
-Zone mismatch > 15km        → +0.30 fraud score
-Impossible GPS velocity     → AUTO-REJECT
-No location pings in 4 hrs  → +0.20 fraud score
-Zone switched < 48 hrs      → +0.15 fraud score
-```
-
----
-
-Layer 3 — Isolation Forest ML (<10 sec)
-
-```
-Features used:
-
-  ├─ Claim frequency vs zone norm
-  ├─ Earnings ratio
-  ├─ Time-of-day claim distribution
-  ├─ Claim-to-disruption correlation
-  └─ Device fingerprint uniqueness
-
-Output:
-  Fraud score between 0.00 – 1.00
-```
-
-Decision routing:
-
-```
-0.00 – 0.74   → AUTO APPROVE (Path A)
-0.00 – 0.60   → AUTO APPROVE (Path B)
-0.75 – 0.89   → HOLD (admin review)
-0.90 – 1.00   → AUTO REJECT
-```
 
 ---
 
@@ -540,7 +299,7 @@ System ledger updates:
 ---
 
 ## 5. System Architecture
-![Rakshak Architecture](./architecture.jpg) 
+![Rakshak Architecture](./architecture_images/architecture.jpg)
 
 Rakshak follows a modular, microservice-style architecture where independent
 platform services interact through a centralized API gateway.
@@ -557,7 +316,7 @@ The system is composed of the following major layers:
 
 • **Trigger Monitoring Service** continuously polls weather, AQI, and news APIs using scheduled Celery jobs.  
 • When disruption thresholds are crossed, events are recorded for the affected geographic zone.  
-• The **Claims & Reconciliation Engine** later validates these disruptions against delivery platform data to calculate actual income loss.  
+• The **Claims & Reconciliation Engine** later validates these disruptions against delivery platform data to calculate actual income loss.
 • AI/ML models support premium pricing, zone risk scoring, and fraud detection.  
 • Approved claims are transferred instantly to workers through Razorpay UPI payouts.  
 • **PostgreSQL** stores policies, claims, and worker profiles, while **Redis** caches trigger readings and real-time monitoring data.
@@ -567,13 +326,56 @@ The system is composed of the following major layers:
 
 ## 6. Parametric Triggers (**Estimated)
 
-| # | Trigger | Source | Threshold | Payout Rate | Notes |
-|---|---------|--------|-----------|-------------|-------|
-| T1 | Heavy rain | OpenWeatherMap | > 35mm/hr OR IMD Red Alert | ₹600/day base | Real free API |
-| T2 | Extreme heat | OpenWeatherMap | Feels-like > 44°C · 10AM–4PM | ₹400/day base | Peak hours only |
-| T3 | Hazardous AQI | WAQI API | AQI > 300 for 2+ hrs | ₹500/day base | Real free API |
-| T4 | Curfew / bandh | NewsAPI + NLP | Keywords + confidence > 80% | ₹750/day base | NLP-scored |
-| T5 | Platform crash | Mock platform API | Order volume drop > 60% vs baseline | ₹350/day base | Unique to food delivery |
+<table border="2" cellpadding="12" cellspacing="0" width="100%" style="border-collapse: collapse; border: 2px solid #333;">
+<tr style="border: 2px solid #333;">
+<td align="center" width="8%"><b>#</b></td>
+<td align="center" width="15%"><b>Trigger</b></td>
+<td align="center" table clear and organized with professionallywidth="17%"><b>Data Source</b></td>
+<td align="center" width="25%"><b>Threshold</b></td>
+<td align="center" width="15%"><b>Payout Ceiling</b></td>
+<td align="center" width="20%"><b>Notes</b></td>
+</tr>
+<tr style="border: 1px solid #333;">
+<td align="center"><b>T1</b></td>
+<td align="center"><b>Heavy Rain</b></td>
+<td align="center"><b>OpenWeatherMap</b></td>
+<td align="center"><b>> 35mm/hr OR IMD Red Alert</b></td>
+<td align="center"><b>₹600/day</b></td>
+<td align="center"><b>Real free API</b></td>
+</tr>
+<tr style="border: 1px solid #333;">
+<td align="center"><b>T2</b></td>
+<td align="center"><b>Extreme Heat</b></td>
+<td align="center"><b>OpenWeatherMap</b></td>
+<td align="center"><b>Feels-like > 44°C (10AM–4PM)</b></td>
+<td align="center"><b>₹400/day</b></td>
+<td align="center"><b>Peak hours only</b></td>
+</tr>
+<tr style="border: 1px solid #333;">
+<td align="center"><b>T3</b></td>
+<td align="center"><b>Hazardous AQI</b></td>
+<td align="center"><b>WAQI API</b></td>
+<td align="center"><b>AQI > 300 for 2+ hrs</b></td>
+<td align="center"><b>₹500/day</b></td>
+<td align="center"><b>Real free API</b></td>
+</tr>
+<tr style="border: 1px solid #333;">
+<td align="center"><b>T4</b></td>
+<td align="center"><b>Curfew/Bandh</b></td>
+<td align="center"><b>NewsAPI + NLP</b></td>
+<td align="center"><b>Keywords + confidence > 80%</b></td>
+<td align="center"><b>₹750/day</b></td>
+<td align="center"><b>NLP-scored</b></td>
+</tr>
+<tr style="border: 1px solid #333;">
+<td align="center"><b>T5</b></td>
+<td align="center"><b>Platform Drop</b></td>
+<td align="center"><b>Mock Platform API</b></td>
+<td align="center"><b>Order volume drop > 60%</b></td>
+<td align="center"><b>₹350/day</b></td>
+<td align="center"><b>Gig delivery specific</b></td>
+</tr>
+</table>
 
 **"Payout rate" is a ceiling, not a flat amount.** Actual payout = MIN(prorated hourly rate × disruption hours, actual income loss calculated).
 
@@ -586,19 +388,35 @@ The system is composed of the following major layers:
 
 Gig workers earn daily and budget weekly. Monthly feels unaffordable. Weekly feels like skipping two chai breaks.
 
-### Tiers
+### Tiers (Example Plans)
 
-```
-**Example plans**
-┌──────────────────┬──────────┬──────────────────┬──────────────────────────┐
-│ Tier             │ Price/wk │ Max Payout/week  │ Triggers                 │
-├──────────────────┼──────────┼──────────────────┼──────────────────────────┤
-│ Bachao (Basic)   │ ₹29      │ ₹800             │ T1 + T2                  │
-│ Suraksha (Std) ★ │ ₹49      │ ₹1,500           │ T1 + T2 + T3 + T4        │
-│ Kavach (Premium) │ ₹79      │ ₹2,500           │ All 5 + composite bonus  │
-└──────────────────┴──────────┴──────────────────┴──────────────────────────┘
-  ★ AI-recommended default for most workers
-```
+
+<table border="2" cellpadding="12" cellspacing="0" width="100%" style="border-collapse: collapse; border: 2px solid #333;">
+<tr style="border: 2px solid #333;">
+<td align="center" width="25%"><b>Tier</b></td>
+<td align="center" width="20%"><b>Price/Week</b></td>
+<td align="center" width="20%"><b>Max Payout/Week</b></td>
+<td align="center" width="35%"><b>Triggers Covered</b></td>
+</tr>
+<tr style="border: 1px solid #333;">
+<td align="center"><b>Bachao (Basic)</b></td>
+<td align="center"><b>₹29</b></td>
+<td align="center"><b>₹800</b></td>
+<td align="center"><b>T1 + T2 (Rain + Heat)</b></td>
+</tr>
+<tr style="border: 1px solid #333;">
+<td align="center"><b>Suraksha (Standard) ★</b></td>
+<td align="center"><b>₹49</b></td>
+<td align="center"><b>₹1,500</b></td>
+<td align="center"><b>T1 + T2 + T3 + T4 (Rain + Heat + AQI + Curfew)</b></td>
+</tr>
+<tr style="border: 1px solid #333;">
+<td align="center"><b>Kavach (Premium)</b></td>
+<td align="center"><b>₹79</b></td>
+<td align="center"><b>₹2,500</b></td>
+<td align="center"><b>All 5 Triggers + Composite Bonus</b></td>
+</tr>
+</table>
 
 ### Dynamic pricing (using ML model)
 
@@ -650,52 +468,45 @@ Routing:    < 0.74 auto-approve (Path A) · < 0.60 auto-approve (Path B)
 ```
 
 
----
-
-## 9. Fraud Detection Architecture
-
-```
-PATH A (auto claims):
-  Pre-check:  Evidence bundle integrity (API snapshot timestamp,
-              zone match, platform data authenticity)
-  → L1 Rule filter → L2 GPS validation → L3 Isolation Forest
-  Auto-approve if score < 0.74
-
-PATH B (self-report claims):
-  Pre-check:  MEDIA VERIFICATION first
-              EXIF timestamp (within 6 hrs) · Duplicate image hash ·
-              GPS metadata · NewsAPI corroboration · Platform cross-check
-  → L1 Rule filter → L2 GPS validation → L3 Isolation Forest
-  Auto-approve only if score < 0.60  (stricter)
-
-LAYER 1 — Rules (instant):
-  Duplicate UPI · claim before threshold · cap exceeded ·
-  policy inactive · same event already paid
-
-LAYER 2 — GPS (< 5 sec):
-  Zone mismatch > 15km +0.30 · velocity impossible → reject ·
-  no pings in 4 hrs +0.20 · zone switched < 48hr +0.15
-
-LAYER 3 — ML based Isolation Forest (< 10 sec):
-  5-feature anomaly model → score 0.00–1.00
-
-Score routing:(**Estimated)
-  0.00–0.74 (A) / 0.00–0.60 (B)  → AUTO-APPROVE → payout
-  0.75–0.89                        → HOLD 2 hrs → admin review
-  0.90–1.00                        → AUTO-REJECT → appeal offered
-```
 
 ---
-## 10. Platform Choice
+## 9. Platform Choice
 
 **Decision: Mobile App + Web App for workers · Web Dashboard for admin · Single shared backend**
 
-| Layer            | Platform          | Users          | Reason                                          |
-|------------------|-------------------|----------------|-------------------------------------------------|
-| Worker frontend  | Mobile App(primary) | Delivery partners | Native GPS · push notifications · camera upload · UPI deep-links |
-| Worker frontend  | Web App (PWA)     | Delivery partners | Access from any browser · no install needed · same features as app |
-| Admin frontend   | Web Dashboard     | Insurer / ops team | Large screen for heat-maps · fraud queue · analytics · bulk actions |
-| Backend          | Single REST API   | Both frontends | One codebase serves all — no duplication        |
+<table border="2" cellpadding="12" cellspacing="0" width="100%" style="border-collapse: collapse; border: 2px solid #333;">
+<tr style="border: 2px solid #333;">
+<td align="center" width="15%"><b>Layer</b></td>
+<td align="center" width="20%"><b>Platform</b></td>
+<td align="center" width="20%"><b>Users</b></td>
+<td align="center" width="45%"><b>Reason</b></td>
+</tr>
+<tr style="border: 1px solid #333;">
+<td align="center"><b>Worker Frontend</b></td>
+<td align="center"><b>Mobile App (Primary)</b></td>
+<td align="center"><b>Delivery Partners</b></td>
+<td align="center"><b>·Native GPS <br/>· Push notifications<br/> ·Camera upload<br/> · UPI deep-links</b></td>
+</tr>
+<tr style="border: 1px solid #333;">
+<td align="center"><b>Worker Frontend</b></td>
+<td align="center"><b>Web App (PWA)</b></td>
+<td align="center"><b>Delivery Partners</b></td>
+<td align="center"><b>·Browser access <br/>· No install <br/>· Same features as app</b></td>
+</tr>
+<tr style="border: 1px solid #333;">
+<td align="center"><b>Admin Frontend</b></td>
+<td align="center"><b>Web Dashboard</b></td>
+<td align="center"><b>Insurer / Ops Team</b></td>
+<td align="center"><b>·Heat-maps <br/>· Fraud queue <br/>· Analytics <br/>· Bulk actions</b></td>
+</tr>
+<tr style="border: 1px solid #333;">
+<td align="center"><b>Backend</b></td>
+<td align="center"><b>Single REST API</b></td>
+<td align="center"><b>All Frontends</b></td>
+<td align="center"><b>·One codebase <br/>· No duplication <br/>· Instant propagation</b></td>
+</tr>
+</table>
+
 
 ### Why both Mobile + Web for workers?
 
@@ -715,44 +526,118 @@ Score routing:(**Estimated)
 
 ---
 
-## 11. Tech Stack
-
+## 10. Tech Stack
 ### Backend
-| Component | Technology |
-|-----------|----------- |
-| API server | Django     |
-| ML service | Python    |
-| ML models | scikit-learn |
-| Database | PostgreSQL  |
-| Cache | Redis — real-time trigger readings per zone |
-| Job queue | Celery + Redis — 15-min trigger polling + 11:50 PM reconciliation batch |
+<table border="2" cellpadding="12" cellspacing="0" width="100%" style="border-collapse: collapse; border: 2px solid #333;">
+<tr style="border: 2px solid #333;">
+<td align="center" width="40%"><b>Component</b></td>
+<td align="center" width="60%"><b>Technology</b></td>
+</tr>
+<tr style="border: 1px solid #333;">
+<td align="center"><b>API Server</b></td>
+<td align="center"><b>Django</b></td>
+</tr>
+<tr style="border: 1px solid #333;">
+<td align="center"><b>ML Service</b></td>
+<td align="center"><b>Python</b></td>
+</tr>
+<tr style="border: 1px solid #333;">
+<td align="center"><b>ML Models</b></td>
+<td align="center"><b>scikit-learn</b></td>
+</tr>
+<tr style="border: 1px solid #333;">
+<td align="center"><b>Database</b></td>
+<td align="center"><b>PostgreSQL</b></td>
+</tr>
+<tr style="border: 1px solid #333;">
+<td align="center"><b>Cache</b></td>
+<td align="center"><b>Redis - real-time trigger readings per zone</b></td>
+</tr>
+<tr style="border: 1px solid #333;">
+<td align="center"><b>Job Queue</b></td>
+<td align="center"><b>Celery + Redis - 15-min trigger polling + 11:50 PM reconciliation batch</b></td>
+</tr>
+</table>
 
 ### Frontend
-| Component | Technology |
-|-----------|----------- |
-| web dashboard(admin + user) | React.js + Tailwind CSS  |
-| mobile app | Flutter |
+<table border="2" cellpadding="12" cellspacing="0" width="100%" style="border-collapse: collapse; border: 2px solid #333;">
+<tr style="border: 2px solid #333;">
+<td align="center" width="40%"><b>Component</b></td>
+<td align="center" width="60%"><b>Technology</b></td>
+</tr>
+<tr style="border: 1px solid #333;">
+<td align="center"><b>Web Dashboard (Admin + User)</b></td>
+<td align="center"><b>React.js + Tailwind CSS</b></td>
+</tr>
+<tr style="border: 1px solid #333;">
+<td align="center"><b>Mobile App</b></td>
+<td align="center"><b>Flutter</b></td>
+</tr>
+</table>
 
 ### Integrations (Subjected to change)
-| Service | Tool | Mode |
-|---------|------|------| 
-| Weather (T1, T2) | OpenWeatherMap API | Free tier |
-| AQI (T3) | WAQI API | Free tier |
-| Curfew (T4) | NewsAPI + custom NLP | Free tier |
-| Platform data (T5 + reconciliation) | Custom mock API | Simulated JSON |
-| Payments | Razorpay | Test mode |
-| Maps / zone boundaries | Google Maps JS API | Free tier |
+<table border="2" cellpadding="12" cellspacing="0" width="100%" style="border-collapse: collapse; border: 2px solid #333;">
+<tr style="border: 2px solid #333;">
+<td align="center" width="25%"><b>Service</b></td>
+<td align="center" width="35%"><b>Tool</b></td>
+<td align="center" width="40%"><b>Mode</b></td>
+</tr>
+<tr style="border: 1px solid #333;">
+<td align="center"><b>Weather (T1, T2)</b></td>
+<td align="center"><b>OpenWeatherMap API</b></td>
+<td align="center"><b>Free Tier</b></td>
+</tr>
+<tr style="border: 1px solid #333;">
+<td align="center"><b>AQI (T3)</b></td>
+<td align="center"><b>WAQI API</b></td>
+<td align="center"><b>Free Tier</b></td>
+</tr>
+<tr style="border: 1px solid #333;">
+<td align="center"><b>Curfew (T4)</b></td>
+<td align="center"><b>NewsAPI + Custom NLP</b></td>
+<td align="center"><b>Free Tier</b></td>
+</tr>
+<tr style="border: 1px solid #333;">
+<td align="center"><b>Platform Data (T5 + Reconciliation)</b></td>
+<td align="center"><b>Custom Mock API</b></td>
+<td align="center"><b>Simulated JSON</b></td>
+</tr>
+<tr style="border: 1px solid #333;">
+<td align="center"><b>Payments</b></td>
+<td align="center"><b>Razorpay</b></td>
+<td align="center"><b>Test Mode</b></td>
+</tr>
+<tr style="border: 1px solid #333;">
+<td align="center"><b>Maps / Zone Boundaries</b></td>
+<td align="center"><b>Google Maps JS API</b></td>
+<td align="center"><b>Free Tier</b></td>
+</tr>
+</table>
 
 ### Infrastructure
-| Component | Service |
-|-----------|---------|
-| Hosting | Railway.app / AWS EC2 t2.micro |
-| Database | Supabase (PostgreSQL free tier) |
-| CI/CD | GitHub Actions |
+<table border="2" cellpadding="12" cellspacing="0" width="100%" style="border-collapse: collapse; border: 2px solid #333;">
+<tr style="border: 2px solid #333;">
+<td align="center" width="40%"><b>Component</b></td>
+<td align="center" width="60%"><b>Service</b></td>
+</tr>
+<tr style="border: 1px solid #333;">
+<td align="center"><b>Hosting</b></td>
+<td align="center"><b>Railway.app / AWS EC2 t2.micro</b></td>
+</tr>
+<tr style="border: 1px solid #333;">
+<td align="center"><b>Database</b></td>
+<td align="center"><b>Supabase (PostgreSQL Free Tier)</b></td>
+</tr>
+<tr style="border: 1px solid #333;">
+<td align="center"><b>CI/CD</b></td>
+<td align="center"><b>GitHub Actions</b></td>
+</tr>
+</table>
+
 
 ---
 
-## 12. System Scalability
+## 11. System Scalability
 
 Rakshak is designed to scale across millions of workers using a **zone-based
 trigger monitoring model**.
@@ -777,7 +662,7 @@ without linear infrastructure growth**.
 
 ---
 
-## 13. Business Viability
+## 12. Business Viability
 
 | Metric | Estimate |
 |--------|---------|
@@ -794,7 +679,7 @@ Traditional parametric pays full daily rate whenever a trigger fires. Rakshak's 
 
 ---
 
-## 14. What Rakshak Does NOT Cover
+## 13. What Rakshak Does NOT Cover
 
 Per the Guidewire DEVTrails Golden Rules:
 
@@ -812,8 +697,262 @@ Per the Guidewire DEVTrails Golden Rules:
 ```
 
 ---
+ 
+## 14. Anti GPS Spoofing Strategy
+ 
+> **The Threat:** 500 delivery workers used GPS-spoofing apps to fake locations inside a
+> weather alert zone — draining a competitor's liquidity pool in hours.
+> Below is why that attack fails on Rakshak, and the additional layers we added to make it airtight.
+ 
+---
+ 
+### 🛡️ Why Rakshak Is Structurally Resistant
+ 
+The competitor was exploited because their **GPS directly triggered payouts.**
+Rakshak's triggers are completely independent of the worker's phone.
+ 
+```
+Competitor:   Fake GPS in rain zone  →  Payout fires          ❌ (exploited)
+ 
+Rakshak:      Fake GPS in rain zone  →  Trigger = OpenWeatherMap (not the phone)
+                                     →  Payout = delivery data cross-check at 11:50 PM
+                                     →  Fraudster at home = OFFLINE on Swiggy
+                                     →  No income loss found = No payout  ✅
+```
+ 
+> A spoofed phone cannot change what OpenWeatherMap reports.
+> A fraudster at home cannot fake an active Swiggy delivery session.
+ 
+**Remaining gap closed below:** 500 workers all going offline needs one more layer to distinguish
+a genuinely stranded worker from a syndicate member at home.
+ 
+---
+ 
+### 1. The Differentiation — Real Worker vs. Spoofer
+ 
+Our ML pipeline checks **5 signals that no GPS spoofing app can override:**
+ 
+<table border="2" cellpadding="10" cellspacing="0" width="100%" style="border-collapse: collapse; border: 2px solid #333;">
+<tr style="border: 2px solid #333;">
+<td align="center" width="5%"><b>#</b></td>
+<td align="center" width="25%"><b>Signal</b></td>
+<td align="center" width="35%"><b>✅ Real Worker</b></td>
+<td align="center" width="35%"><b>❌ Spoofer at Home</b></td>
+</tr>
+<tr style="border: 1px solid #333;">
+<td align="center"><b>S1</b></td>
+<td><b>Delivery App Session</b></td>
+<td>Was ONLINE on Swiggy/Zomato, went offline as rain worsened</td>
+<td>Never opened the delivery app — zero session that day</td>
+</tr>
+<tr style="border: 1px solid #333;">
+<td align="center"><b>S2</b></td>
+<td><b>Accelerometer (Built-in Hardware)</b></td>
+<td>Bike vibration pattern detected — was physically riding</td>
+<td>Flat, still readings all day — phone sitting on a table</td>
+</tr>
+<tr style="border: 1px solid #333;">
+<td align="center"><b>S3</b></td>
+<td><b>Network Fingerprint</b></td>
+<td>Connected to street cell towers inside the disruption zone</td>
+<td>Home Wi-Fi router detected — GPS says Banjara Hills, network says otherwise</td>
+</tr>
+<tr style="border: 1px solid #333;">
+<td align="center"><b>S4</b></td>
+<td><b>Zone Delivery History</b></td>
+<td>Has actual past orders from this pincode in last 4 weeks</td>
+<td>Zero prior delivery activity in this zone — first visit is a payout event</td>
+</tr>
+<tr style="border: 1px solid #333;">
+<td align="center"><b>S5</b></td>
+<td><b>Pre-Disruption Movement</b></td>
+<td>GPS trail shows normal delivery route before rain started</td>
+<td>GPS teleports into zone — no approach path, no prior stops</td>
+</tr>
+</table>
+ 
+```
+5 / 5 signals pass  →  Genuine   →  Auto-approve
+3 – 4 pass          →  Probable  →  Approve + silent monitoring
+1 – 2 pass          →  Flagged   →  Soft hold, one quick action required
+0 pass              →  Fraud     →  Reject + ring investigation triggered
+```
+ 
+---
+ 
+### 2. The Data — Beyond GPS Coordinates
+ 
+**Passive signals collected by the Flutter app (zero extra steps for worker):**
+ 
+```
+· Accelerometer variance       → moving like a delivery bike, or sitting still?
+· Network BSSID hash           → street cell tower or home Wi-Fi router?
+· Connectivity quality         → storm zone = dropped signal | home = stable connection
+· Delivery app online duration → how many minutes were they active in the zone?
+· 30-day zone delivery history → do they normally even work in this area?
+```
+ 
+ 
+### 3. The UX Balance — Honest Workers Always Protected
+ 
+```
+Core rule: Bad signal in a storm ≠ fraud. Never penalize the exact condition that caused the claim.
+```
+ 
+<table border="2" cellpadding="10" cellspacing="0" width="100%" style="border-collapse: collapse; border: 2px solid #333;">
+<tr style="border: 2px solid #333;">
+<td align="center" width="18%"><b>Fraud Score</b></td>
 
-## 15. Team (Flexible Roles)
+<td align="center" width="20%"><b>Outcome</b></td>
+<td align="center" width="44%"><b>Worker Experience</b></td>
+</tr>
+<tr style="border: 1px solid #333;">
+<td align="center"><b>&lt; 0.60</b></td>
+
+<td align="center"><b>✅ Instant Payout</b></td>
+<td>UPI transfer immediately. Zero friction.</td>
+</tr>
+<tr style="border: 1px solid #333;">
+<td align="center"><b>0.60 – 0.74</b></td>
+
+<td align="center"><b>✅ Payout + Watch</b></td>
+<td>Paid normally. Silently monitored. Worker sees nothing different.</td>
+</tr>
+<tr style="border: 1px solid #333;">
+<td align="center"><b>0.75 – 0.89</b></td>
+
+<td align="center"><b>⏸ Soft Hold</b></td>
+<td><i>"Send one location photo or tap Confirm. 4-hour window. Payout follows immediately."</i></td>
+</tr>
+<tr style="border: 1px solid #333;">
+<td align="center"><b>&gt; 0.90</b></td>
+
+<td align="center"><b>❌ Reject + Appeal</b></td>
+<td>Plain-language reason. One-tap appeal. Human review in 24 hrs.</td>
+</tr>
+
+</table>
+ 
+**Protections built specifically for genuine bad-weather connectivity loss:**
+ 
+```
+1. GPS Grace Window    →  Dropped pings during active weather alert = expected, not flagged
+2. Offline-First App   →  Flutter caches all sensor data locally, uploads when signal returns
+3. Sensor Reweighting  →  During active storm: GPS weight reduced, accelerometer weight increased
+```
+ 
+---
+ 
+### 🧱 Why GPS Bypass Still Fails — 3-Layer Fraud Verification
+ 
+Every single claim on Rakshak passes through **3 independent layers** before any payout.
+GPS validation sits at Layer 2. Even if a spoofer bypasses it — **2 layers are still waiting.**
+ 
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│                    3-LAYER FRAUD VERIFICATION                       │
+├─────────────────────────────────────────────────────────────────────┤
+│                                                                     │
+│  LAYER 1 — Rule-Based Income Check                                  │
+│  ─────────────────────────────────                                  │
+│  · Was a real disruption event recorded in this zone?               │
+│  · Did the worker have an active policy at that time?               │
+│  · Does actual income loss exist vs 4-week baseline?                │
+│  · Is the claim inside the disruption time window?                  │
+│                                                                     │
+│  → No real income loss found = claim dies here, GPS irrelevant      │
+│                                                                     │
+├─────────────────────────────────────────────────────────────────────┤
+│                                                                     │
+│  LAYER 2 — GPS Zone Validation          ⚠️ CAN BE SPOOFED           │
+│  ──────────────────────────────────                                 │
+│  · Is the worker's reported location inside the disruption zone?    │
+│  · Does movement trajectory match the zone before disruption?       │
+│  · Cross-checked against accelerometer + network fingerprint        │
+│                                                                     │
+│  → Spoofer fakes GPS ✓  but accelerometer is flat ✗                 │
+│  → Spoofer fakes GPS ✓  but home Wi-Fi router detected ✗            │
+│  → GPS alone bypassed — but the supporting signals catch it         │
+│                                                                     │
+├─────────────────────────────────────────────────────────────────────┤
+│                                                                     │
+│  LAYER 3 — Isolation Forest ML Anomaly Detection                    │
+│  ────────────────────────────────────────────────                   │
+│  · Claim frequency vs zone norm                                     │
+│  · Earnings ratio vs historical baseline                            │
+│  · Device fingerprint uniqueness                                    │
+│  · Time distribution of claim submission                            │
+│  · Claim-to-disruption correlation score                            │
+│                                                                     │
+│  Fraud Score:  < 0.74 → auto-approve                                │
+│                0.75–0.89 → hold for review                          │
+│                > 0.90 → reject                                      │
+│                                                                     │
+│  → Even if Layer 2 is bypassed, abnormal patterns surface here      │
+│                                                                     │
+└─────────────────────────────────────────────────────────────────────┘
+```
+ 
+> **The key insight:** GPS spoofing bypasses Layer 2 coordinate check.
+> It cannot fabricate real income loss in Layer 1.
+> It cannot hide abnormal claim patterns in Layer 3.
+> **All 3 layers must be bypassed simultaneously — that has not happened.**
+ 
+---
+ 
+### 📍 Peer Zone Validation — The Crowd Witness
+ 
+When a disruption is declared in a zone, Rakshak checks **how many other genuine workers
+in the same zone experienced the same income drop.**
+ 
+```
+Disruption fires in Zone: Hyderabad — Banjara Hills
+ 
+  Worker A (genuine) — ONLINE on Swiggy, income dropped 80%  ✅
+  Worker B (genuine) — ONLINE on Swiggy, income dropped 75%  ✅
+  Worker C (genuine) — ONLINE on Swiggy, income dropped 82%  ✅
+  Worker X (spoofer) — OFFLINE all day, claims income drop    ❌
+ 
+  Zone peer drop average = 79%
+  Worker X reported income = normal (was at home, earning nothing to lose)
+  Worker X claim pattern = outlier vs zone peers → flagged
+```
+ 
+**Why this matters:** A genuine disruption creates a consistent income loss pattern
+across all workers in that zone. A spoofer's claim sticks out because their
+delivery data doesn't match the zone's crowd behaviour.
+ 
+```
+Peer Zone Score = how closely a worker's income pattern
+                  matches the zone average during the event
+ 
+High match  →  Supports genuine claim
+Low match   →  Anomaly flag added to Isolation Forest score
+```
+ 
+---
+ 
+### 🔐 Defense in Depth
+ 
+```
+ Attack: GPS Spoofing
+     │
+     ├─► Layer 1 — Triggers from OpenWeatherMap, not the phone         → spoof irrelevant
+     ├─► Layer 2 — 11:50 PM delivery data cross-check                  → no session = no payout
+     ├─► Layer 3 — Accelerometer + Network fingerprint                 → physical presence proven
+     └─► Layer 4 — Tiered response with appeals                        → honest workers protected
+```
+ 
+> A spoofer must simultaneously fake their **delivery session**, **phone motion**,
+> **network router**, **30-day zone history**, and **beat 4 ring alarms** — all at once.
+>
+> **That is not a vulnerability. That is a trap.**
+ 
+---
+ 
+---
+
+## 15. Team Details (Flexible Roles)
 
 | Name | Role(Primary) |
 |------|------|
@@ -827,7 +966,6 @@ Per the Guidewire DEVTrails Golden Rules:
 **Hackathon:** Guidewire DEVTrails 2026
 
 ---
-
 ```
 ╔══════════════════════════════════════════════════════════════╗
 ║  The difference between Rakshak and every other parametric   ║
@@ -837,6 +975,6 @@ Per the Guidewire DEVTrails Golden Rules:
 ║  We pay because YOU lost income when it rained.              ║
 ║  And we prove it with data before transferring a rupee.      ║
 ╚══════════════════════════════════════════════════════════════╝
-
-Guidewire DEVTrails 2026 · Phase 1 Submission · March 20, 2026
+ 
+Guidewire DEVTrails 2026 
 ```
