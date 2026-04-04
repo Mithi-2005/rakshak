@@ -11,10 +11,14 @@ import uuid
 from pathlib import Path
 from typing import Dict, Optional
 
+import requests
 import uvicorn
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, Field, validator
+from sklearn.ensemble import RandomForestRegressor
 
+from train import generate_synthetic_data, train_model, save_model
+from utils.aqi_service import get_aqi_features
 from utils.config_loader import settings
 from utils.pincode_mapper import get_location_info, validate_pincode
 from utils.weather_service import get_weather_features
@@ -44,7 +48,7 @@ class PredictionRequest(BaseModel):
 
     pincode: str = Field(..., min_length=6, max_length=6, description="6-digit pincode")
     claim_history: int = Field(..., ge=0, description="Number of previous claims")
-    avg_income: float = Field(..., gt=0, description="Average annual income in INR")
+    avg_income: float = Field(..., gt=0, description="Average income in INR")
 
     @validator("pincode")
     def validate_pincode_field(cls, v):
@@ -86,17 +90,29 @@ def load_model():
     model_path = settings._resolve_path(settings.MODEL_PATH)
 
     if not model_path.exists():
-        raise FileNotFoundError(f"Model not found at {model_path}")
+        return _retrain_model(model_path)
 
     try:
         with open(model_path, "rb") as f:
             _model_cache = pickle.load(f)
+        if getattr(_model_cache, "n_features_in_", None) != 9:
+            logger.warning("Model feature count mismatch. Retraining model artifact.")
+            return _retrain_model(model_path)
         logger.info(f"Model loaded from {model_path}")
         return _model_cache
 
     except Exception as e:
         logger.error(f"Error loading model: {e}")
         raise
+
+
+def _retrain_model(model_path: Path) -> RandomForestRegressor:
+    global _model_cache
+    X, y, _ = generate_synthetic_data(n_samples=750)
+    model = train_model(X, y)
+    save_model(model, str(model_path))
+    _model_cache = model
+    return model
 
 
 def load_pricing_config() -> Dict:
@@ -215,9 +231,7 @@ async def predict(request: PredictionRequest) -> PredictionResponse:
         )
 
         # Step 3: Get weather features
-        weather_features = get_weather_features(
-            location_info["lat"], location_info["lon"]
-        )
+        weather_features = get_weather_features(location_info["lat"], location_info["lon"])
         weather_source = weather_features.get("weather_source", "unknown")
         logger.info(
             "Step 3 complete | request_id=%s | weather_source=%s | weather_features=%s",
@@ -226,10 +240,19 @@ async def predict(request: PredictionRequest) -> PredictionResponse:
             json.dumps(weather_features),
         )
 
+        aqi_features = get_aqi_features(location_info["lat"], location_info["lon"])
+        logger.info(
+            "Step 3b complete | request_id=%s | aqi_source=%s | aqi_features=%s",
+            request_id,
+            aqi_features.get("aqi_source", "unknown"),
+            json.dumps(aqi_features),
+        )
+
         # Step 4: Create feature vector
         features_dict = create_features(
             location_info=location_info,
             weather_features=weather_features,
+            aqi_features=aqi_features,
             claim_history=request.claim_history,
             avg_income=request.avg_income,
         )
@@ -246,6 +269,8 @@ async def predict(request: PredictionRequest) -> PredictionResponse:
             features_dict["rainy_hours_next_48h"],
             features_dict["avg_rainfall_next_48h"],
             features_dict["rainy_hours_last_24h"],
+            features_dict["avg_temperature_next_48h"],
+            features_dict["aqi_trend"],
             features_dict["claim_history"],
             features_dict["avg_income"],
             features_dict["disruption_score"],
@@ -284,6 +309,8 @@ async def predict(request: PredictionRequest) -> PredictionResponse:
                 "rainy_hours_next_48h": features_dict["rainy_hours_next_48h"],
                 "avg_rainfall_next_48h": features_dict["avg_rainfall_next_48h"],
                 "rainy_hours_last_24h": features_dict["rainy_hours_last_24h"],
+                "avg_temperature_next_48h": features_dict["avg_temperature_next_48h"],
+                "aqi_trend": features_dict["aqi_trend"],
                 "disruption_score": features_dict["disruption_score"],
                 "claim_history": features_dict["claim_history"],
                 "income_level": request.avg_income,
@@ -334,6 +361,10 @@ async def predict(request: PredictionRequest) -> PredictionResponse:
     except FileNotFoundError as e:
         logger.error("Resource not found | request_id=%s | error=%s", request_id, e)
         raise HTTPException(status_code=500, detail="Model or config not found")
+
+    except requests.RequestException as e:
+        logger.error("Provider request failed | request_id=%s | error=%s", request_id, e)
+        raise HTTPException(status_code=503, detail="External provider unavailable")
 
     except Exception as e:
         logger.error(

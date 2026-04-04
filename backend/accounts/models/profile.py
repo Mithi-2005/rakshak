@@ -19,6 +19,7 @@ class UserProfile(Base):
     phone: Mapped[Optional[str]] = mapped_column(String(30), nullable=True)
     platform: Mapped[Optional[str]] = mapped_column(String(80), nullable=True)
     city: Mapped[Optional[str]] = mapped_column(String(80), nullable=True)
+    pincode: Mapped[Optional[str]] = mapped_column(String(6), nullable=True, index=True)
     vehicle_type: Mapped[Optional[str]] = mapped_column(String(80), nullable=True)
     avg_daily_income: Mapped[Optional[float]] = mapped_column(Float, nullable=True)
     created_at: Mapped[datetime] = mapped_column(

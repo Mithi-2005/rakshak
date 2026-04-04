@@ -28,6 +28,12 @@ class Settings:
     WEATHER_BASE_URL = os.getenv(
         "WEATHER_BASE_URL", "https://api.open-meteo.com/v1/forecast"
     )
+    WAQI_BASE_URL = os.getenv("WAQI_BASE_URL", "https://api.waqi.info/feed/geo")
+    WAQI_API_TOKEN = os.getenv("WAQI_API_TOKEN", "")
+    AQI_FALLBACK_SOURCE = os.getenv("AQI_FALLBACK_SOURCE", "openmeteo")
+    AQI_FALLBACK_URL = os.getenv(
+        "AQI_FALLBACK_URL", "https://air-quality-api.open-meteo.com/v1/air-quality"
+    )
 
     # Backend Configuration
     BACKEND_CONFIG_URL = os.getenv(

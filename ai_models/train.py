@@ -33,6 +33,8 @@ def generate_synthetic_data(n_samples: int = 500) -> tuple:
     rainy_hours_next_48h = np.random.randint(0, 49, n_samples)
     avg_rainfall_next_48h = np.random.uniform(0, 12, n_samples)
     rainy_hours_last_24h = np.random.randint(0, 25, n_samples)
+    avg_temperature_next_48h = np.random.uniform(20, 42, n_samples)
+    aqi_trend = np.random.uniform(0.05, 0.95, n_samples)
     claim_history = np.random.randint(0, 10, n_samples)
     avg_income = np.random.uniform(20000, 200000, n_samples)
 
@@ -40,7 +42,8 @@ def generate_synthetic_data(n_samples: int = 500) -> tuple:
         rainy_hours_next_48h * 0.4
         + avg_rainfall_next_48h * 0.3
         + rainy_hours_last_24h * 0.2
-        + risk_zones * 0.1
+        + risk_zones * 0.05
+        + aqi_trend * 10 * 0.05
     )
 
     # Create feature matrix
@@ -50,6 +53,8 @@ def generate_synthetic_data(n_samples: int = 500) -> tuple:
             rainy_hours_next_48h,
             avg_rainfall_next_48h,
             rainy_hours_last_24h,
+            avg_temperature_next_48h,
+            aqi_trend,
             claim_history,
             avg_income,
             disruption_score,
@@ -61,6 +66,8 @@ def generate_synthetic_data(n_samples: int = 500) -> tuple:
         "rainy_hours_next_48h",
         "avg_rainfall_next_48h",
         "rainy_hours_last_24h",
+        "avg_temperature_next_48h",
+        "aqi_trend",
         "claim_history",
         "avg_income",
         "disruption_score",
@@ -76,7 +83,9 @@ def generate_synthetic_data(n_samples: int = 500) -> tuple:
         + (rainy_hours_next_48h / 48) * 0.23
         + (avg_rainfall_next_48h / 12) * 0.20
         + (rainy_hours_last_24h / 24) * 0.10
-        + (claim_history / 10) * 0.20
+        + np.clip((avg_temperature_next_48h - 20) / 22, 0, 1) * 0.05
+        + aqi_trend * 0.12
+        + (claim_history / 10) * 0.16
         + income_inverse * 0.07
         + disruption_norm * 0.17
     )

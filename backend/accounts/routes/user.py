@@ -9,6 +9,7 @@ from django.views.decorators.http import require_http_methods
 from sqlalchemy import select
 
 from accounts.core.dependencies import get_current_user
+from accounts.core.exceptions import APIError
 from accounts.core.http import api_handler, parse_json_body
 from accounts.db.session import get_db_session
 from accounts.models import UserProfile
@@ -21,6 +22,8 @@ from accounts.schemas.profile import (
 
 def _upsert_profile(request: HttpRequest) -> JsonResponse:
     payload = ProfileUpsertRequest.model_validate(parse_json_body(request))
+    if not payload.pincode:
+        raise APIError(422, "pincode is required")
 
     with get_db_session() as db:
         user = get_current_user(request, db)
@@ -34,6 +37,7 @@ def _upsert_profile(request: HttpRequest) -> JsonResponse:
         profile.phone = payload.phone
         profile.platform = payload.platform
         profile.city = payload.city
+        profile.pincode = payload.pincode
         profile.vehicle_type = payload.vehicle_type
         profile.avg_daily_income = payload.avg_daily_income
         profile.updated_at = now

@@ -3,13 +3,14 @@
 from datetime import datetime
 from typing import Optional
 
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field
 
 
 class ProfileUpsertRequest(BaseModel):
     phone: Optional[str] = None
     platform: Optional[str] = None
     city: Optional[str] = None
+    pincode: Optional[str] = Field(default=None, min_length=6, max_length=6)
     vehicle_type: Optional[str] = None
     avg_daily_income: Optional[float] = None
 
@@ -19,6 +20,7 @@ class UserProfileOut(BaseModel):
     phone: Optional[str] = None
     platform: Optional[str] = None
     city: Optional[str] = None
+    pincode: Optional[str] = None
     vehicle_type: Optional[str] = None
     avg_daily_income: Optional[float] = None
     created_at: datetime

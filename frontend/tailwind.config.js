@@ -1,41 +1,35 @@
 /** @type {import('tailwindcss').Config} */
-export default {
+module.exports = {
   content: [
-    "./index.html",
-    "./src/**/*.{js,jsx}",
+    "./app/**/*.{js,jsx,ts,tsx}",
+    "./components/**/*.{js,jsx,ts,tsx}",
+    "./lib/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
     extend: {
       colors: {
-        primary: {
-          50: '#fffbf0',
-          100: '#fef3e2',
-          200: '#fde8c8',
-          300: '#fcd9a1',
-          400: '#fac575',
-          500: '#f8ae4a',
-          600: '#f5933d',
-          700: '#e87a2f',
-          800: '#c75d2b',
-          900: '#a34d26',
+        brand: {
+          50: "#fff7ed",
+          100: "#ffedd5",
+          200: "#fed7aa",
+          300: "#fdba74",
+          400: "#fb923c",
+          500: "#f97316",
+          600: "#ea580c",
+          700: "#c2410c",
+          800: "#9a3412",
+          900: "#7c2d12"
         },
-        accent: {
-          50: '#fffef5',
-          100: '#fffceb',
-          200: '#fff9d6',
-          300: '#fff5b3',
-          400: '#ffee80',
-          500: '#ffe74c',
-          600: '#ffd700',
-          700: '#ffb700',
-          800: '#ff9500',
-          900: '#ff7100',
-        },
+        ember: "#2b1308",
+        mist: "rgba(255,255,255,0.18)"
       },
-      fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
+      boxShadow: {
+        glow: "0 24px 80px rgba(249, 115, 22, 0.20)"
       },
+      backdropBlur: {
+        xs: "3px"
+      }
     },
   },
   plugins: [],
-}
+};

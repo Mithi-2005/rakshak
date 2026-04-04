@@ -2,7 +2,11 @@
 App configuration for pricing_admin
 """
 
+import sys
+
 from django.apps import AppConfig
+from django.db import connection
+from django.db.utils import OperationalError, ProgrammingError
 
 
 class PricingAdminConfig(AppConfig):
@@ -12,11 +16,35 @@ class PricingAdminConfig(AppConfig):
 
     def ready(self):
         """Initialize app - ensure default pricing config exists."""
+        skipped_commands = {
+            "makemigrations",
+            "migrate",
+            "collectstatic",
+            "check",
+            "shell",
+            "createsuperuser",
+            "test",
+        }
+        if len(sys.argv) > 1 and sys.argv[1] in skipped_commands:
+            return
+
         from .models import PricingConfig, PricingPlan
+
+        try:
+            existing_tables = set(connection.introspection.table_names())
+        except (OperationalError, ProgrammingError):
+            return
+
+        required_tables = {
+            PricingConfig._meta.db_table,
+            PricingPlan._meta.db_table,
+        }
+        if not required_tables.issubset(existing_tables):
+            return
 
         # Create default pricing config if none exists
         if not PricingConfig.objects.exists():
-            config = PricingConfig.objects.create(
+            PricingConfig.objects.create(
                 base_price=40,
                 risk_multiplier=40,
                 income_factor=5,
