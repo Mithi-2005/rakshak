@@ -959,7 +959,7 @@ clearly shown per zone.
 
 <div align="center">
 
-<img src="zone_selection.jpeg" alt="Zone Selection Screen" width="220" />
+<img src="./architecture_images/zone_selection.jpeg" alt="Zone Selection Screen" width="220" />
 <p><em>Swiggy Partner App — Zone selection during onboarding. Worker is assigned a zone, not free-roaming.</em></p>
 
 </div>
@@ -968,7 +968,7 @@ Once a zone is assigned, the platform enforces hard geographic boundaries:
 
 <div align="center">
 
-<img src="zone_map.jpeg" alt="Zone Map" width="220" />
+<img src="./architecture_images/zone_map.jpeg" alt="Zone Map" width="220" />
 <p><em>Swiggy Zone Map — polygon-bounded delivery zones. Outside the boundary: "Please get back to your zone to get your next order."</em></p>
 
 </div>
@@ -977,7 +977,7 @@ Zone changes are **locked for a minimum of 7 days** after joining:
 
 <div align="center">
 
-<img src="zone_change_lock.jpeg" alt="Zone Change Locked" width="220" />
+<img src="./architecture_images/zone_change_lock.jpeg" alt="Zone Change Locked" width="220" />
 <p><em>Zone change blocked — "Allowed after 7 days of joining. Try again on 27 Mar."</em></p>
 
 </div>
@@ -987,7 +987,7 @@ next afternoon, with 30-day tenure requirements:
 
 <div align="center">
 
-<img src="secondary_zone.jpeg" alt="Secondary Zone Request" width="220" />
+<img src="./architecture_images/secondary_zone.jpeg" alt="Secondary Zone Request" width="220" />
 <p><em>Secondary zone request via support — not instant, subject to eligibility checks.</em></p>
 
 </div>
